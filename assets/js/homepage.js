@@ -4,20 +4,6 @@ var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
 var languageButtonsEl = document.querySelector("#language-buttons");
 
-/*var languageButtonsEl = function() {
-  document.createElement('div');
-  languageButtonsEl.classList = 'language-buttons';
-} */
-
-var buttonClickHandler = function(event) {
-  var language=event.target.getAttribute("data-language");
-  if(language) {
-    getFeaturedRepos(language);
-    //clear old content
-    repoContainerEl.textContent="";
-  }
-};
-
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -26,12 +12,29 @@ var formSubmitHandler = function (event) {
 
   if (username) {
     getUserRepos(username);
+      // clear old content
+      repoContainerEl.textContent = "";
     nameInputEl.value = "";
   } else {
     alert("Please enter a GitHub username");
   }
   console.log(event);
 };
+
+
+var buttonClickHandler = function(event) {
+  // get the language attribute from the clicked element
+  var language = event.target.getAttribute("data-language");
+
+  if (language) {
+    getFeaturedRepos(language);
+
+    // clear old content
+    repoContainerEl.textContent = "";
+  }
+};
+
+
 
 // API call
 var getUserRepos = function (user) {
